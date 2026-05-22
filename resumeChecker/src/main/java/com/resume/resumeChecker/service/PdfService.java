@@ -1,0 +1,27 @@
+package com.resume.resumeChecker.service;
+
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+
+@Service
+public class PdfService {
+
+    public String extractText(MultipartFile file) {
+        System.out.println("pdf service");
+        if (!file.getContentType().equals("application/pdf")) {
+            throw new RuntimeException("Only PDF files allowed");
+        }
+
+        try (PDDocument document = PDDocument.load(file.getInputStream())) {
+            PDFTextStripper stripper = new PDFTextStripper();
+            System.out.println(stripper.getText(document));
+            return stripper.getText(document);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to read PDF");
+        }
+    }
+}
