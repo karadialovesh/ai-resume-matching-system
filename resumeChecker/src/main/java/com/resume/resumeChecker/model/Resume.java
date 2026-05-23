@@ -5,6 +5,8 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity
 @Table(name = "resumes")
@@ -22,7 +24,8 @@ public class Resume {
     private String content;
 
 
-    @Column(columnDefinition = "float8[]")
+    @JdbcTypeCode(SqlTypes.VECTOR)
+    @Column(columnDefinition = "vector(768)")
     private float[] embedding;
 
     private String sourceType;
