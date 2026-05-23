@@ -42,6 +42,10 @@ Thumbs.db
 # Env
 .env
 
+
+.idea/
+target/
+*.iml
 # Application secrets
 application-local.properties
 
